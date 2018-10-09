@@ -37,6 +37,16 @@ CREATE TABLE `tb_permissao_usuario`(
  CONSTRAINT `FK_Permissao_permissao` FOREIGN KEY (`FK_Permissao`) references `TB_Permissao` (`ID_Permissao`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+CREATE TABLE `tb_historico_negativacao`(
+`ID_Historico` int (11) NOT NULL AUTO_INCREMENT,
+`FK_Atleta` int (11) NOT NULL,
+`FK_Usuario` int (11) not null,
+`data` date not null,
+CONSTRAINT `PK_ID_Historico` PRIMARY KEY(`ID_Historico`),
+CONSTRAINT `FK_Atleta_Historico` FOREIGN KEY(`FK_Atleta`) references `tb_atleta`(`ID_Atleta`),
+CONSTRAINT `FK_Usuario_Historico` FOREIGN KEY(`FK_Usuario`) references `tb_usuario`(`ID_Usuario`)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 insert into tb_unidade (Nome) values ('Americana');
 insert into tb_unidade (Nome) values ('Barueri');
 insert into tb_unidade (Nome) values ('Carapicuiba');
@@ -67,6 +77,28 @@ insert into tb_permissao (Nome) values ('Solicitações de Cadastro de Atletas')
 insert into tb_permissao (Nome) values ('Delegados');
 insert into tb_permissao (Nome) values ('Cadastrar Atleta');
 insert into tb_permissao (Nome) values ('Lista de Atletas');
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `PR_AprovaRejeitaAtleta`(
+
+atleta_var int,
+usuario_var int,
+aprovado_var int
+)
+BEGIN
+     
+      Insert into tb_historico_negativacao (`FK_Atleta`,`FK_Usuario`,`data`)
+       values (atleta_var,usuario_var,now());
+       
+       update tb_atleta set situacao = aprovado_var where ID_Atleta = atleta_var;
+    
+
+
+ END
+ $$
+DELIMITER ;
+
+
 
 
 select * from tb_unidade;

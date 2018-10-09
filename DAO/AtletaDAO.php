@@ -3,6 +3,7 @@
 $raiz = $_SERVER['DOCUMENT_ROOT'];
 
 require_once($raiz.'/models/model_atleta.php');
+require_once($raiz.'/models/model_usuario.php');
 require_once($raiz.'/models/model_unidade.php');
 require_once($raiz.'/models/model_validacao.php');
 
@@ -133,6 +134,22 @@ function ListarUnicoAtletaPendente($id){
     $atleta->setDeclaracao($array['Declaracao']);
 
      return array($atleta,$unidade);
+}
+
+function ValidaAtleta($atleta,$usuario,$aprova) {
+
+    $conexao = new Conexao();
+
+ $sql = "call PR_AprovaRejeitaAtleta($atleta,$usuario,$aprova);";
+
+mysqli_query($conexao->getConexao(),$sql);
+    
+    $conexao->FechaConexao($conexao->getConexao());
+
+    echo 1;
+
+
+
 }
 
 ?>

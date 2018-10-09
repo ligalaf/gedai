@@ -366,3 +366,75 @@ function visualizar(id) {
   });
 }
 
+function aprovar() {
+
+  var idAlterar = document.getElementById('idAlterar').value;
+  $.ajax({
+    type: "POST",
+    url: "/call/laf/atleta/aprovar.php",
+    data: { idAlterar: idAlterar },
+    success: function(result) {
+        if(result == 1){
+        Messenger().post({
+        message: 'Aprovado com Sucesso',
+        type: 'success',
+        showCloseButton: 'yes',
+        closeButtonText: 'x',
+        HideAfter: 2
+      })
+            var table = $("#atletaTable").dataTable();
+            table.dataTable().fnDestroy();
+            listar();
+       $("#modalConfirmar").modal('hide');
+       $("#modalAprovar").modal('hide');
+
+       }
+
+    },
+    error: function() {
+      Messenger().post({
+        message: 'Erro na chamada! contate um administrador.',
+        type: 'error',
+        showCloseButton: 'yes',
+        closeButtonText: 'x',
+        HideAfter: 2
+      })
+    }
+  });
+}
+function reprovar() {
+
+  var idAlterar = document.getElementById('idAlterar').value;
+  $.ajax({
+    type: "POST",
+    url: "/call/laf/atleta/reprovar.php",
+    data: { idAlterar: idAlterar },
+    success: function(result) {
+        if(result == 1){
+        Messenger().post({
+        message: 'Reprovado com Sucesso',
+        type: 'success',
+        showCloseButton: 'yes',
+        closeButtonText: 'x',
+        HideAfter: 2
+      })
+            var table = $("#atletaTable").dataTable();
+            table.dataTable().fnDestroy();
+            listar();
+       $("#modalAprovar").modal('hide');
+       $("#modalRejeitar").modal('hide');
+
+       }
+
+    },
+    error: function() {
+      Messenger().post({
+        message: 'Erro na chamada! contate um administrador.',
+        type: 'error',
+        showCloseButton: 'yes',
+        closeButtonText: 'x',
+        HideAfter: 2
+      })
+    }
+  });
+}

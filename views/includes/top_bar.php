@@ -21,7 +21,7 @@
                     </a>
                     <ul class="dropdown-menu profile animated fadeIn">
                         <li class="last">
-                            <a href="ui-login.html">
+                            <a href="/call/default/logout.php">
                                 <i class="fa fa-lock"></i>
                                 Logout
                             </a>

@@ -355,8 +355,8 @@ $validate ->ValidarPermissao($_SESSION['usuarioid'],3);
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <button type="button" class="btn btn-primary" id="btneditar" name="btneditar" onclick="alterar()">Aceitar</button>
-                                <button type="button" class="btn btn-danger" id="btneditar" name="btneditar" onclick="recurar()">Recusar</button>
+                            <a class="btn btn-primary" data-toggle="modal" href="#modalConfirmar">Aprovar</a>
+                             <a class="btn btn-danger" data-toggle="modal" href="#modalRejeitar">Rejeitar</a>
                             </div>
                         </div>
 
@@ -372,33 +372,52 @@ $validate ->ValidarPermissao($_SESSION['usuarioid'],3);
     </div>
 </div>
 
-<!-- Modal Excluir -->
-<form name="excluiusuario" id="excluiusuario" method="post">
-    <div class="modal fade col-xs-12" id="modalExcluir" tabindex="-1" role="dialog" aria-hidden="true">
+<!-- Modal Incluir -->
+    <div class="modal fade col-xs-12" id="modalConfirmar" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title">Excluir Usuário</h4>
+                    <h4 class="modal-title">Incluir Atleta</h4>
                 </div>
                 
                 <div class="modal-body">
-                        Deseja Excluir este registro?
-                    <input type="hidden" name="idExcluir" id="idExcluir">
+                        Deseja incluir este registro?
                 </div>
                 
                 <div class="modal-footer">
                     <button data-dismiss="modal" class="btn btn-default" type="button">Cancelar</button>
-                    <button class="btn btn-danger" type="button" onclick="excluir()"> Confirmar</button>
+                    <button class="btn btn-primary" type="button" onclick="aprovar()"> Confirmar</button>
                 </div>
             </div>
         </div>
     </div>
-</form>
+    <!-- Modal Rejeitar -->
+    <div class="modal fade col-xs-12" id="modalRejeitar" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Negar Atleta</h4>
+                </div>
+                
+                <div class="modal-body">
+                        Deseja negar este registro?
+                </div>
+                
+                <div class="modal-footer">
+                    <button data-dismiss="modal" class="btn btn-default" type="button">Cancelar</button>
+                    <button class="btn btn-danger" type="button" onclick="reprovar()"> Confirmar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 <div id="retornocadastro">
 </div> 
 <!--        Modal Add  End       -->
+
 
 <!--        FOOTER        -->
 <?php include("../../views/includes/footer.php");?>

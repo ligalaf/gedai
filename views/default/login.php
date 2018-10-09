@@ -58,19 +58,9 @@
                     <p class="submit">
                         <input type="button" name="wp-submit" id="wp-submit" class="btn btn-accent btn-block" value="Logar" onclick="logar()" />
                     </p>
-                     <p>
-                      <a data-toggle ="modal" href ="#modalAdd">
-                            <i class="ace-icon fa fa-arrow-left"></i>
-                            Solicitar Cadastro
-                      </a>  
-                        
+                     <p>  
                     </p>
                     <p>
-                      <a href="#" data-target="#forgot-box" class="forgot-password-link">
-                            <i class="ace-icon fa fa-arrow-left"></i>
-                             Esqueceu a senha?
-                        </a>  
-
                     </p>
                 </form>
 
