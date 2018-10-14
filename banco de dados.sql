@@ -9,6 +9,27 @@ CONSTRAINT `PK_ID_Unidade` PRIMARY KEY (`ID_Unidade`)
 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+CREATE TABLE `tb_atleta` (
+  `ID_Atleta` int(11) NOT NULL AUTO_INCREMENT,
+  `FK_Unidade` int(11) NOT NULL,
+  `Nome` varchar(100) NOT NULL,
+  `RA` varchar(100) NOT NULL,
+  `RG` varchar(15) NOT NULL,
+  `Curso` varchar(100) NOT NULL,
+  `Email` varchar(100) NOT NULL,
+  `Celular` varchar(15) NOT NULL,
+  `Ano` int(4) NOT NULL,
+  `Semestre` varchar(20) NOT NULL,
+  `Turno` varchar(20) NOT NULL,
+  `Declaracao` varchar(100) NOT NULL,
+  `Situacao` int(1) NOT NULL,
+  PRIMARY KEY (`ID_Atleta`),
+  UNIQUE KEY `UK_RA` (`RA`),
+  KEY `FK_ID_Unidade_Atleta` (`FK_Unidade`),
+  CONSTRAINT `FK_ID_Unidade_Atleta` FOREIGN KEY (`FK_Unidade`) REFERENCES `tb_unidade` (`ID_Unidade`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+
 CREATE TABLE `tb_usuario`(
 `ID_Usuario` int(11) NOT NULL AUTO_INCREMENT,
 `FK_Unidade` int(11) NOT NULL,
@@ -98,11 +119,40 @@ BEGIN
  $$
 DELIMITER ;
 
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `PR_CadastraUsuario`(
 
+nome_var varchar(100),
+senha_var varchar(100),
+email_var varchar(100),
+bloqueado_var int,
+avatar_var varchar(100),
+tipo_var varchar (20),
+unidade_var int
+)
+BEGIN
+     DECLARE id int;
+      INSERT INTO tb_usuario ( Nome,Senha,Email,BLoqueado,Avatar,Tipo,FK_Unidade) 
+               VALUES (nome_var,senha_var,email_var,bloqueado_var,avatar_var,tipo_var,unidade_var);
+               
+               select last_insert_id()  into id;
+               
+               IF tipo_var = 'LAF' THEN
+               
+           INSERT INTO tb_permissao_usuario (FK_Usuario,FK_Permissao) values (id,1); 
+           INSERT INTO tb_permissao_usuario (FK_Usuario,FK_Permissao) values (id,2); 
+		    INSERT INTO tb_permissao_usuario (FK_Usuario,FK_Permissao) values (id,3); 
+            
+            ELSE 
+            INSERT INTO tb_permissao_usuario (FK_Usuario,FK_Permissao) values (id,4); 
+           INSERT INTO tb_permissao_usuario (FK_Usuario,FK_Permissao) values (id,5); 
+		    INSERT INTO tb_permissao_usuario (FK_Usuario,FK_Permissao) values (id,6); 
+            
+    
+		END IF;
 
+ END
+ $$
+DELIMITER ;
 
-select * from tb_unidade;
-
-select * from tb_permissao_usuario
-select * from tb_usuario;
 

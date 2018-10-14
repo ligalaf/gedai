@@ -80,7 +80,7 @@ $validate ->ValidarPermissao($_SESSION['usuarioid'],5);
              <div class="row">
                         <div class="col-xs-12 col-md-6">
                             <div class="form-group">
-                                <label for="nome" class="control-label">RG</label>
+                                <label for="nome" class="control-label">RG ou CNH</label>
                                 <div class="controls">
                                     <input type="text" class="form-control" id="rg" name="rg">
                                 </div>

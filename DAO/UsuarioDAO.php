@@ -122,15 +122,17 @@ function CadastraUsuario($usuario){
     // Faz o upload da imagem para seu respectivo caminho
     move_uploaded_file($foto["tmp_name"], $caminho_imagem);
  
-    // Se for validado faz o insert
-    $cmdsql = "INSERT INTO tb_usuario ( Nome,Senha,Email,BLoqueado,Avatar,Tipo,FK_Unidade) 
-               VALUES ('{$usuario->getNome()}','{$usuario->getSenha()}','{$usuario->getEmail()}',{$usuario->getBloqueado()},'{$nome_imagem}','{$usuario->getTipo()}',{$usuario->getFk_unidade()})";
+
+
+  $cmdsql = "call PR_CadastraUsuario ('{$usuario->getNome()}','{$usuario->getSenha()}','{$usuario->getEmail()}',{$usuario->getBloqueado()},'{$nome_imagem}','{$usuario->getTipo()}',{$usuario->getFk_unidade()})";           
 
            
 
              
     
     mysqli_query($conexao->getConexao(),$cmdsql);
+
+
     
     $conexao->FechaConexao($conexao->getConexao());
 
