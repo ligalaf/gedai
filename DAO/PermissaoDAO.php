@@ -69,7 +69,7 @@ function RetornaMenu($usuario){
      if(in_array('6',$permissao)){
 
         $menu .=  '<li class="">
-                <a href="/views/cadastro">
+                <a href="/views/delegado/listaatleta.php">
                     <i class="fas fa-edit"></i>
                     <span class="title">Lista de Atletas</span>
                 </a>

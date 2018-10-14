@@ -104,6 +104,48 @@ where a.situacao = 0";
 
 }
 
+ function ListaAtleta(){
+
+  $conexao = new Conexao();
+    
+  $retorno = null;
+
+  $cmdsql = "
+select a.ID_Atleta,a.Nome,u.Nome as Unidade,a.Email,a.RA,
+CASE
+ WHEN a.situacao =0 THEN 'Pendente LAF'
+ WHEN a.situacao =1 THEN 'Aprovado'
+ WHEN a.situacao =2 THEN 'Rejeitado'
+   END as situacao
+ from
+tb_atleta a inner join tb_unidade u on a.FK_Unidade = u.ID_Unidade";
+
+    
+  $resultado = mysqli_query($conexao->getConexao(), $cmdsql);
+
+
+
+  while($cadastro = mysqli_fetch_assoc($resultado)){
+        
+    $retorno = $retorno."
+      <tr>
+        <td align = 'center' width = '10%'>".$cadastro['ID_Atleta']."</td>
+        <td align = 'center'>".$cadastro['Nome']."</td>
+        <td align = 'center'>".$cadastro['Unidade']."</td>
+        <td align = 'center'>".$cadastro['Email']."</td>
+        <td align = 'center'>".$cadastro['RA']."</td>
+        <td align = 'center'>".$cadastro['situacao']."</td>
+            <td align = 'center'>
+          <button class='btn btn-info' title='Editar' value='".$cadastro['ID_Atleta']."' onclick='visualizar(this)'>
+            <i class='fas fa-edit'></i></td>
+      </tr>";
+  }
+
+  $conexao->FechaConexao($conexao->getConexao());
+
+  return $retorno;
+
+}
 
 function ListarUnicoAtletaPendente($id){
 
