@@ -9,6 +9,27 @@ CONSTRAINT `PK_ID_Unidade` PRIMARY KEY (`ID_Unidade`)
 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+CREATE TABLE `tb_atleta` (
+  `ID_Atleta` int(11) NOT NULL AUTO_INCREMENT,
+  `FK_Unidade` int(11) NOT NULL,
+  `Nome` varchar(100) NOT NULL,
+  `RA` varchar(100) NOT NULL,
+  `RG` varchar(15) NOT NULL,
+  `Curso` varchar(100) NOT NULL,
+  `Email` varchar(100) NOT NULL,
+  `Celular` varchar(15) NOT NULL,
+  `Ano` int(4) NOT NULL,
+  `Semestre` varchar(20) NOT NULL,
+  `Turno` varchar(20) NOT NULL,
+  `Declaracao` varchar(100) NOT NULL,
+  `Situacao` int(1) NOT NULL,
+  PRIMARY KEY (`ID_Atleta`),
+  UNIQUE KEY `UK_RA` (`RA`),
+  KEY `FK_ID_Unidade_Atleta` (`FK_Unidade`),
+  CONSTRAINT `FK_ID_Unidade_Atleta` FOREIGN KEY (`FK_Unidade`) REFERENCES `tb_unidade` (`ID_Unidade`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+
 CREATE TABLE `tb_usuario`(
 `ID_Usuario` int(11) NOT NULL AUTO_INCREMENT,
 `FK_Unidade` int(11) NOT NULL,
