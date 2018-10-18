@@ -237,7 +237,79 @@ function AlteraUsuario($usuario){
   }
 }
 
+function AlteraUsuarioMenu($usuario){
 
+
+
+  $validacao = new validacao;
+
+ echo $validacao->validarCampo("Nome",$usuario->getNome(),100,4);
+  echo $validacao->validarCampo("Senha",$usuario->getSenha(),25,8);
+
+
+
+  if($usuario->getAvatar() == ''){
+    $foto = '';
+  } else{
+     echo $validacao->ValidaImagem($usuario->getAvatar());
+      $foto = $usuario->getAvatar();
+
+  }
+
+  if($validacao->verifica()){
+   
+    // instanciando conexão
+    $conexao = new Conexao();
+
+    $raiz = $_SERVER['DOCUMENT_ROOT'];
+
+    if($foto == ''){
+      $whereFoto = '';
+    }else{
+
+      // Pega extensão da imagem
+      preg_match("/\.(jpeg|jpg|png|gif|bmp){1}$/i", $foto["name"], $ext);
+
+      // Gera um nome único para a imagem
+      $nome_imagem = md5(uniqid(time())) . "." . $ext[1];
+
+      // Caminho de onde ficará a imagem
+      $caminho_imagem = $raiz."/images/avatar/" . $nome_imagem;
+
+      // Faz o upload da imagem para seu respectivo caminho
+      move_uploaded_file($foto["tmp_name"], $caminho_imagem);
+
+      $whereFoto = ", Avatar = '{$nome_imagem}'";
+
+      $sql_imagem = "SELECT Avatar from tb_usuario where ID_Usuario = {$usuario->getId_usuario()}";
+      $resultado = mysqli_query($conexao->getConexao(),$sql_imagem);
+      $array = mysqli_fetch_assoc($resultado);
+
+      $imagem = $array['Avatar'];
+
+      if (file_exists($raiz."/images/avatar/".$imagem)) {
+        unlink($raiz."/images/avatar/".$imagem);
+      }
+    }
+
+
+    // Se for validado faz o insert
+    $cmdsql = "UPDATE tb_usuario SET Nome = '{$usuario->getNome()}', Senha = '{$usuario->getSenha()}' $whereFoto WHERE ID_Usuario = {$usuario->getId_usuario()} ";
+    $_SESSION['usuarionome'] = $usuario->getNome();
+    if($foto != ''){
+    $_SESSION['avatar'] = $nome_imagem;
+  }
+
+
+    
+    mysqli_query($conexao->getConexao(),$cmdsql);
+    
+    $conexao->FechaConexao($conexao->getConexao());
+
+   echo 1;
+    
+  }
+}
 
 
 ?>

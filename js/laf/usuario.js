@@ -247,6 +247,7 @@ $(document).ready(function(){
     }
 
   });
+   
 
   $("#olho").mousedown(function() {
     $("#senha").attr("type", "text");
@@ -541,6 +542,7 @@ function preencheridAlterar(id) {
   });
 }
 
+
 function excluir() {
 
   if ($("#excluiusuario").valid()) {
@@ -628,4 +630,5 @@ function alterar() {
     return false;
   }
 }
+
 
