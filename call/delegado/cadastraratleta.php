@@ -19,7 +19,7 @@ $atleta->setEmail($_POST['email']);
 $atleta->setCelular($_POST['celular']);
 $atleta->setAno($_POST['ano']);
 $atleta->setDeclaracao($_FILES['declaracao']);
-
+$atleta->setFoto($_FILES['foto']);
 
 echo CadastrarAtleta($atleta);
 

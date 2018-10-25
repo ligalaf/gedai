@@ -109,6 +109,11 @@ function ValidaFormAtleta(){
         required: true,
         extension: "jpeg|jpg|png|gif|bmp|pdf",
         filesize: 4000000
+      },
+      foto: {
+        required: true,
+        extension: "jpeg|jpg|png|gif|bmp|pdf",
+        filesize: 4000000
       }
 
     },

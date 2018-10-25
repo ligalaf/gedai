@@ -345,6 +345,7 @@ function visualizar(id) {
       $('#ra_editar').val(result.RA);
       $('#rg_editar').val(result.RG);
       $('#declaracao').attr("href", "/images/declaracao/"+result.Declaracao);
+      $('#foto_editar').attr("href", "/images/foto/"+result.Foto);
       $('#email_editar').val(result.Email);
       $('#curso_editar').val(result.Curso);
       $('#ano_editar').val(result.Ano);

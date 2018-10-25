@@ -341,13 +341,13 @@ $validate ->ValidarPermissao($_SESSION['usuarioid'],3);
                         </div>
                              <div class="col-xs-12 col-md-6">
                             <div class="form-group">
-                                <label for="bloqueado" class="control-label">Declaração</label>
+                                <label for="bloqueado" class="control-label">Declaração / Foto</label>
                                 <div class="controls">
-                                    <a href="" name="declaracao" id="declaracao"> Declaração </a>
+                                    <a href="" name="declaracao" id="declaracao"> Declaração</a> /
+                                    <a href="" name="foto_editar" id="foto_editar"> Foto </a>
                                 </div>
                             </div>
                         </div>
-
 
 
                     </div>

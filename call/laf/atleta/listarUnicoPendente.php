@@ -29,7 +29,8 @@ $array = array("nome" => $aux_atleta->getNome(),
 			   "Semestre" => $aux_atleta->getSemestre(),
 			   "Turno" => $aux_atleta->getTurno(),
 			   "Declaracao" => $aux_atleta->getDeclaracao(),
-			   "Unidade" => $aux_unidade->getNome()
+			   "Unidade" => $aux_unidade->getNome(),
+			    "Foto" => $aux_atleta->getFoto()
 );
 
 

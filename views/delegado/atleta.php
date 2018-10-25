@@ -80,7 +80,7 @@ $validate ->ValidarPermissao($_SESSION['usuarioid'],5);
              <div class="row">
                         <div class="col-xs-12 col-md-6">
                             <div class="form-group">
-                                <label for="nome" class="control-label">RG ou CNH</label>
+                                <label for="nome" class="control-label">RG</label>
                                 <div class="controls">
                                     <input type="text" class="form-control" id="rg" name="rg">
                                 </div>
@@ -161,7 +161,14 @@ $validate ->ValidarPermissao($_SESSION['usuarioid'],5);
                         </div>
             </div>
             <div class="row">
-                
+                 <div class="col-xs-12 col-md-6">
+                            <div class="form-group">
+                                <label for="nome" class="control-label">Foto/RG</label>
+                                <div class="controls">
+                                   <input type="file" class="form-control" name="foto" id="foto">  
+                                </div>
+                            </div>
+                        </div>
                 <div class="col-xs-12 col-md-6">
                             <div class="form-group">
                                <label for="nome" class="control-label">Unidade</label>

@@ -34,27 +34,32 @@ function CadastrarAtleta($atleta){
   if($validacao->verifica()){
      
     $foto = $atleta->getDeclaracao();
-
+    $foto2 = $atleta->getFoto();
     // Pega extensão da imagem
     preg_match("/\.(jpeg|jpg|png|gif|bmp|pdf){1}$/i", $foto["name"], $ext);
+    preg_match("/\.(jpeg|jpg|png|gif|bmp|pdf){1}$/i", $foto2["name"], $ext1);
 
     // Gera um nome único para a imagem
     $nome_imagem = md5(uniqid(time())) . "." . $ext[1];
+    $nome_imagem2 = md5(uniqid(time())) . "." . $ext1[1];
+
 
     $raiz = $_SERVER['DOCUMENT_ROOT'];
 
     // Caminho de onde ficará a imagem
     $caminho_imagem = $raiz."/images/declaracao/" . $nome_imagem;
+    $caminho_imagem2 = $raiz."/images/foto/" . $nome_imagem2;
 
     // Faz o upload da imagem para seu respectivo caminho
     move_uploaded_file($foto["tmp_name"], $caminho_imagem);
+    move_uploaded_file($foto2["tmp_name"], $caminho_imagem2);
 
 
    
     $conexao = new Conexao();
  
-    $sql = "INSERT INTO tb_atleta (Nome, RA, RG,Curso,Email, Celular,Ano,Semestre,Turno,Declaracao,FK_Unidade,Situacao) 
-            VALUES ('{$atleta->getNome()}','{$atleta->getRa()}','{$atleta->getRG()}','{$atleta->getCurso()}','{$atleta->getEmail()}','{$atleta->getCelular()}',{$atleta->getAno()},'{$atleta->getSemestre()}','{$atleta->getTurno()}','{$nome_imagem}',{$atleta->getFk_Unidade()},'0')";
+    $sql = "INSERT INTO tb_atleta (Nome, RA, RG,Curso,Email, Celular,Ano,Semestre,Turno,Declaracao,FK_Unidade,Situacao,Foto) 
+            VALUES ('{$atleta->getNome()}','{$atleta->getRa()}','{$atleta->getRG()}','{$atleta->getCurso()}','{$atleta->getEmail()}','{$atleta->getCelular()}',{$atleta->getAno()},'{$atleta->getSemestre()}','{$atleta->getTurno()}','{$nome_imagem}',{$atleta->getFk_Unidade()},'0','{$nome_imagem2}')";
 
 
         
@@ -151,7 +156,7 @@ function ListarUnicoAtletaPendente($id){
 
   $conexao = new Conexao();
 
- $cmdsql = "SELECT a.Nome,a.RG,a.RA,a.Curso,Email,a.Ano,a.Semestre,a.Turno,a.Declaracao,u.Nome as Unidade,a.Celular FROM tb_atleta a inner join tb_unidade u on a.FK_Unidade = u.ID_Unidade
+ $cmdsql = "SELECT a.Nome,a.RG,a.RA,a.Curso,Email,a.Ano,a.Semestre,a.Turno,a.Declaracao,u.Nome as Unidade,a.Celular,a.Foto FROM tb_atleta a inner join tb_unidade u on a.FK_Unidade = u.ID_Unidade
   WHERE a.ID_Atleta = $id";
     
   $resultado = mysqli_query($conexao->getConexao(), $cmdsql);
@@ -174,7 +179,7 @@ function ListarUnicoAtletaPendente($id){
     $atleta->setTurno($array['Turno']);
     $atleta->setCelular($array['Celular']);
     $atleta->setDeclaracao($array['Declaracao']);
-
+    $atleta->setFoto($array['Foto']);
      return array($atleta,$unidade);
 }
 

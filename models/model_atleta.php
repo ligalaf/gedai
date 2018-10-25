@@ -12,6 +12,7 @@ class Atleta {
         private $semestre;
         private $turno;
         private $declaracao;
+         private $foto;
         private $situacao;
 
 
@@ -50,6 +51,9 @@ class Atleta {
         }
           public function getDeclaracao(){
             return $this->declaracao;
+        }
+         public function getFoto(){
+            return $this->foto;
         }
         public function getSituacao(){
             return $this->situacao;
@@ -102,6 +106,10 @@ class Atleta {
         }
         public function setDeclaracao($value){
             $this->declaracao = $value;
+            return $this;
+        }
+        public function setFoto($value){
+            $this->foto = $value;
             return $this;
         }
          public function setSituacao($value){

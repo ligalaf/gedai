@@ -155,4 +155,4 @@ BEGIN
  $$
 DELIMITER ;
 
-
+ALTER TABLE tb_atleta ADD `Foto` varchar(100) NOT NULL;
