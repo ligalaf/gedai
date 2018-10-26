@@ -66,6 +66,15 @@ function RetornaMenu($usuario){
                 </a>
             </li>';
     }
+         if(in_array('7',$permissao)){
+
+        $menu .=  '<li class="">
+                <a href="/views/delegado/agregadooutros.php">
+                    <i class="fas fa-edit"></i>
+                    <span class="title">Cadastrar Agregado/Outros</span>
+                </a>
+            </li>';
+    }
      if(in_array('6',$permissao)){
 
         $menu .=  '<li class="">
@@ -75,6 +84,7 @@ function RetornaMenu($usuario){
                 </a>
             </li>';
     }
+
 
 
 

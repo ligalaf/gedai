@@ -29,6 +29,19 @@ CREATE TABLE `tb_atleta` (
   CONSTRAINT `FK_ID_Unidade_Atleta` FOREIGN KEY (`FK_Unidade`) REFERENCES `tb_unidade` (`ID_Unidade`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
+CREATE TABLE `tb_agregado` (
+  `ID_Agregado` int(11) NOT NULL AUTO_INCREMENT,
+  `FK_Unidade` int(11) NOT NULL,
+  `Nome` varchar(100) NOT NULL,
+  `RG` varchar(15) NOT NULL,
+  `Email` varchar(100) NOT NULL,
+  `Celular` varchar(15) NOT NULL,
+  `Tipo` varchar(20) NOT NULL,
+  `Foto` varchar(100) NOT NULL,
+  PRIMARY KEY (`ID_Agregado`),
+  KEY `FK_ID_Unidade_Agregado` (`FK_Unidade`),
+  CONSTRAINT `FK_ID_Unidade_Agregado` FOREIGN KEY (`FK_Unidade`) REFERENCES `tb_unidade` (`ID_Unidade`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `tb_usuario`(
 `ID_Usuario` int(11) NOT NULL AUTO_INCREMENT,
