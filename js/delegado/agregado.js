@@ -138,7 +138,7 @@ function cadastrar() {
                         HideAfter: 1
                     });
                     setTimeout(function(){
-                        window.location.href = '/views/delegado/agregado.php';
+                        window.location.href = '/views/delegado/agregadooutros.php';
                     }, 3000);
         }
       },

@@ -81,6 +81,18 @@ CONSTRAINT `FK_Atleta_Historico` FOREIGN KEY(`FK_Atleta`) references `tb_atleta`
 CONSTRAINT `FK_Usuario_Historico` FOREIGN KEY(`FK_Usuario`) references `tb_usuario`(`ID_Usuario`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+CREATE TABLE `tb_interfatec`(
+`ID_Inter` int (11) NOT NULL AUTO_INCREMENT,
+`FK_Atleta` int (11) NULL,
+`FK_Agregado` int (11) NULL,
+`Pulseira`varchar (50) NOT NULL,
+`Numero`int (11) NOT NULL,
+CONSTRAINT `PK_ID_Inter` PRIMARY KEY(`ID_Inter`),
+CONSTRAINT `FK_Atleta_Inter` FOREIGN KEY(`FK_Atleta`) references `tb_atleta`(`ID_Atleta`),
+CONSTRAINT `FK_Agregado_Inter` FOREIGN KEY(`FK_Agregado`) references `tb_agregado`(`ID_Agregado`)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
 insert into tb_unidade (Nome) values ('Americana');
 insert into tb_unidade (Nome) values ('Barueri');
 insert into tb_unidade (Nome) values ('Carapicuiba');
