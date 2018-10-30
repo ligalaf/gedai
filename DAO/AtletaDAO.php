@@ -151,6 +151,61 @@ tb_atleta a inner join tb_unidade u on a.FK_Unidade = u.ID_Unidade";
   return $retorno;
 
 }
+ function ListaAtletaInter(){
+
+  $conexao = new Conexao();
+    
+  $retorno = null;
+
+  session_start();
+   $id = $_SESSION['usuarioid']; 
+  $retorno = null;
+
+  $cmdsql = "
+select a.ID_Atleta,a.Nome,u.Nome as Unidade,a.Email,a.RA
+from tb_atleta a 
+inner join tb_unidade u on a.FK_Unidade = u.ID_Unidade
+left join tb_interfatec i on a.ID_Atleta = i.FK_Atleta
+where i.FK_Atleta is null and u.ID_Unidade = (select FK_Unidade from tb_usuario where ID_Usuario =$id)
+and a.situacao = 1
+";
+
+
+    
+  $resultado = mysqli_query($conexao->getConexao(), $cmdsql);
+
+
+
+  while($cadastro = mysqli_fetch_assoc($resultado)){
+        
+    $retorno = $retorno."
+
+      <tr>
+        <td align = 'center' width = '10%'>".$cadastro['ID_Atleta']."</td>
+        <td align = 'center'>".$cadastro['Nome']."</td>
+        <td align = 'center'>".$cadastro['Unidade']."</td>
+        <td align = 'center'>".$cadastro['Email']."</td>
+        <td align = 'center'>".$cadastro['RA']."</td>
+        <td align = 'center'>
+         <select class='form-control' id='pacote[".$cadastro['ID_Atleta']."]' name='pacote[".$cadastro['ID_Atleta']."]'>
+
+                                      <option> Atleta </option>
+                                      <option> Completo </option>
+
+        </select>  
+
+        </td>
+        <td align = 'center'>
+        <input type = 'checkbox' class='form-control' name ='check[".$cadastro['ID_Atleta']."] id = check[".$cadastro['ID_Atleta']."]'>                               
+        </td>
+      </tr>";
+  }
+
+  $conexao->FechaConexao($conexao->getConexao());
+
+  return $retorno;
+
+}
 
 function ListarUnicoAtletaPendente($id){
 
@@ -198,5 +253,92 @@ mysqli_query($conexao->getConexao(),$sql);
 
 
 }
+
+function CadastraAtletaInter($atleta,$pulseira,$numero){
+
+    $conexao = new Conexao();
+
+    $id = $atleta->getId_Atleta();
+
+ $sql = "insert into tb_interfatec (FK_Atleta,pulseira,numero)
+ values ($id,'$pulseira',$numero)";
+
+
+mysqli_query($conexao->getConexao(),$sql);
+    
+    $conexao->FechaConexao($conexao->getConexao());
+
+
+
+
+}
+
+function RetornaNumeroPulseira($pulseira){
+
+  $conexao = new Conexao();
+
+if($pulseira == 'Atleta'){
+$sql = "
+SELECT IFNULL(max(Numero),1449) as valor from tb_interfatec
+where Pulseira = '$pulseira'";
+}
+if($pulseira == 'Completo'){
+$sql = "
+SELECT IFNULL(max(Numero),999) as valor from tb_interfatec
+where Pulseira = '$pulseira'";
+}
+
+$exec = mysqli_query($conexao->getConexao(),$sql);
+ $result = mysqli_fetch_assoc($exec);
+
+
+ $valor = $result['valor'] +1;
+
+    $conexao->FechaConexao($conexao->getConexao());
+
+    return $valor;
+}
+function ListaAtletaInterConsolidado(){
+
+  $conexao = new Conexao();
+    
+  $retorno = null;
+
+  session_start();
+   $id = $_SESSION['usuarioid']; 
+  $retorno = null;
+
+  $cmdsql = "
+select a.Nome,u.Nome as Unidade,a.RG,i.Numero,i.Pulseira as Pacote
+from tb_atleta a 
+inner join tb_unidade u on a.FK_Unidade = u.ID_Unidade
+inner join tb_interfatec i on a.ID_Atleta = i.FK_Atleta
+";
+
+
+    
+  $resultado = mysqli_query($conexao->getConexao(), $cmdsql);
+
+
+
+  while($cadastro = mysqli_fetch_assoc($resultado)){
+        
+    $retorno = $retorno."
+
+      <tr>
+        <td align = 'center'>".$cadastro['Nome']."</td>
+        <td align = 'center'>".$cadastro['Unidade']."</td>
+        <td align = 'center'>".$cadastro['RG']."</td>
+        <td align = 'center'>".$cadastro['Pacote']."</td>
+         <td align = 'center'>".$cadastro['Numero']."</td>
+      </tr>";
+  }
+
+  $conexao->FechaConexao($conexao->getConexao());
+
+  return $retorno;
+
+}
+
 
 ?>

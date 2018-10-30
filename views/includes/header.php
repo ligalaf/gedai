@@ -22,6 +22,7 @@
         <link href="/plugins/datatables/extensions/TableTools/css/dataTables.tableTools.min.css" rel="stylesheet" type="text/css" media="screen"/>
         <link href="/plugins/datatables/extensions/Responsive/css/dataTables.responsive.css" rel="stylesheet" type="text/css" media="screen"/>
         <link href="/plugins/datatables/extensions/Responsive/bootstrap/3/dataTables.bootstrap.css" rel="stylesheet" type="text/css" media="screen"/> 
+        <link href="/plugins/icheck/skins/all.css" rel="stylesheet" type="text/css" media="screen">
         <!-- End DATATABLE Plugin -->
 
         <!-- Edit Texto HTML5 Start Plugin -->

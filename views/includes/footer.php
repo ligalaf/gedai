@@ -38,6 +38,9 @@
     <!-- Edit Texto HTML5 Start Plugin -->
     <script src="/plugins/summernote/summernote.js" type="text/javascript"></script>
     <!-- Edit Texto HTML5 End Plugin -->
+    <script src="/plugins/autosize/autosize.min.js" type="text/javascript"></script>
+
+    <script src="/plugins/icheck/icheck.min.js" type="text/javascript"></script>
 
     <!-- DropZone Start Plugin -->
     <script src="/plugins/dropzone/dropzone.js" type="text/javascript"></script>

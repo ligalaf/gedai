@@ -44,7 +44,26 @@ function RetornaMenu($usuario){
                 </a>
             </li>';
     }
-      if(in_array('3',$permissao)){
+      if(in_array('10',$permissao)){
+
+        $menu .=  '<li class="">
+                <a href="/views/laf/listaatletainter.php">
+                    <i class="fas fa-edit"></i>
+                    <span class="title">Lista de Atletas Inter</span>
+                </a>
+            </li>';
+    }
+     if(in_array('11',$permissao)){
+
+        $menu .=  '<li class="">
+                <a href="/views/laf/listaagregadointer.php">
+                    <i class="fas fa-edit"></i>
+                    <span class="title">Lista de Agregado/Outros Inter</span>
+                </a>
+            </li>';
+    }
+
+    if(in_array('3',$permissao)){
 
         $menu .=  '<li class="">
                 <a href="/views/laf/atletaspendentes.php">
@@ -75,6 +94,24 @@ function RetornaMenu($usuario){
                 </a>
             </li>';
     }
+    if(in_array('8',$permissao)){
+
+        $menu .=  '<li class="">
+                <a href="/views/delegado/atletainter.php">
+                    <i class="fas fa-edit"></i>
+                    <span class="title">Selecionar Atletas Inter</span>
+                </a>
+            </li>';
+    }
+     if(in_array('9',$permissao)){
+
+        $menu .=  '<li class="">
+                <a href="/views/delegado/agregadointer.php">
+                    <i class="fas fa-edit"></i>
+                    <span class="title">Selecionar Agregado/Outros</span>
+                </a>
+            </li>';
+    }
      if(in_array('6',$permissao)){
 
         $menu .=  '<li class="">
@@ -84,6 +121,7 @@ function RetornaMenu($usuario){
                 </a>
             </li>';
     }
+
 
 
 
