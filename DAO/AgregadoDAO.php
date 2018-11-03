@@ -327,4 +327,70 @@ inner join tb_interfatec i on a.ID_Agregado = i.FK_Agregado
 
 }
 
+function ListaAgregadoConsolidado(){
+
+  $conexao = new Conexao();
+    
+  $retorno = null;
+  session_start();
+   $id = $_SESSION['usuarioid']; 
+
+  $cmdsql = "
+select a.ID_Agregado,a.Nome,u.Nome as Unidade,a.Email,
+i.Pulseira as situacao
+ from
+tb_agregado a inner join tb_unidade u on a.FK_Unidade = u.ID_Unidade
+inner join tb_usuario us on us.FK_Unidade = A.FK_Unidade
+inner join tb_interfatec i on a.ID_Agregado = i.FK_Agregado
+where us.ID_Usuario = $id
+";
+
+    
+  $resultado = mysqli_query($conexao->getConexao(), $cmdsql);
+
+
+
+  while($cadastro = mysqli_fetch_assoc($resultado)){
+        
+    $retorno = $retorno."
+      <tr>
+        <td align = 'center' width = '10%'>".$cadastro['ID_Agregado']."</td>
+        <td align = 'center'>".$cadastro['Nome']."</td>
+        <td align = 'center'>".$cadastro['Unidade']."</td>
+        <td align = 'center'>".$cadastro['Email']."</td>
+        <td align = 'center'>".$cadastro['situacao']."</td>
+            <td align = 'center'>
+          <button class='btn btn-danger' id = 'btnexcluir' name = 'btnexcluir' title='Editar' value='".$cadastro['ID_Agregado']."' onclick='apagar(this)'>
+            <i class='fas fa-trash'></i>
+            </td>
+           
+      </tr>";
+  }
+
+  $conexao->FechaConexao($conexao->getConexao());
+
+  return $retorno;
+
+}
+
+function ExcluiAgregadoInter($id){
+
+    $conexao = new Conexao();
+
+
+
+
+ $sql = "delete from tb_interfatec where FK_Agregado = $id";
+
+
+mysqli_query($conexao->getConexao(),$sql);
+    
+    $conexao->FechaConexao($conexao->getConexao());
+
+
+echo 1;
+
+}
+
+
 ?>

@@ -272,6 +272,25 @@ mysqli_query($conexao->getConexao(),$sql);
 
 
 }
+function ExcluiAtletaInter($id){
+
+    $conexao = new Conexao();
+
+
+
+
+ $sql = "delete from tb_interfatec where FK_Atleta = $id";
+
+
+mysqli_query($conexao->getConexao(),$sql);
+    
+    $conexao->FechaConexao($conexao->getConexao());
+
+
+echo 1;
+
+}
+
 
 function RetornaNumeroPulseira($pulseira){
 
@@ -298,23 +317,25 @@ $exec = mysqli_query($conexao->getConexao(),$sql);
 
     return $valor;
 }
-function ListaAtletaInterConsolidado(){
+
+
+function ListaAtletaConsolidado(){
 
   $conexao = new Conexao();
     
   $retorno = null;
-
   session_start();
    $id = $_SESSION['usuarioid']; 
-  $retorno = null;
 
   $cmdsql = "
-select a.Nome,u.Nome as Unidade,a.RG,i.Numero,i.Pulseira as Pacote
-from tb_atleta a 
-inner join tb_unidade u on a.FK_Unidade = u.ID_Unidade
+select a.ID_Atleta,a.Nome,u.Nome as Unidade,a.Email,a.RA,
+i.Pulseira as situacao
+ from
+tb_atleta a inner join tb_unidade u on a.FK_Unidade = u.ID_Unidade
+inner join tb_usuario us on us.FK_Unidade = A.FK_Unidade
 inner join tb_interfatec i on a.ID_Atleta = i.FK_Atleta
+where us.ID_Usuario = $id
 ";
-
 
     
   $resultado = mysqli_query($conexao->getConexao(), $cmdsql);
@@ -324,13 +345,18 @@ inner join tb_interfatec i on a.ID_Atleta = i.FK_Atleta
   while($cadastro = mysqli_fetch_assoc($resultado)){
         
     $retorno = $retorno."
-
       <tr>
+        <td align = 'center' width = '10%'>".$cadastro['ID_Atleta']."</td>
         <td align = 'center'>".$cadastro['Nome']."</td>
         <td align = 'center'>".$cadastro['Unidade']."</td>
-        <td align = 'center'>".$cadastro['RG']."</td>
-        <td align = 'center'>".$cadastro['Pacote']."</td>
-         <td align = 'center'>".$cadastro['Numero']."</td>
+        <td align = 'center'>".$cadastro['Email']."</td>
+        <td align = 'center'>".$cadastro['RA']."</td>
+        <td align = 'center'>".$cadastro['situacao']."</td>
+            <td align = 'center'>
+          <button class='btn btn-danger' id = 'btnexcluir' name = 'btnexcluir' title='Editar' value='".$cadastro['ID_Atleta']."' onclick='apagar(this)'>
+            <i class='fas fa-trash'></i>
+            </td>
+           
       </tr>";
   }
 
@@ -340,5 +366,34 @@ inner join tb_interfatec i on a.ID_Atleta = i.FK_Atleta
 
 }
 
+function ListaAtletaInterConsolidado(){
+  $conexao = new Conexao();
+    
+  $retorno = null;
+  session_start();
+   $id = $_SESSION['usuarioid']; 
+  $retorno = null;
+  $cmdsql = "
+select a.Nome,u.Nome as Unidade,a.RG,i.Numero,i.Pulseira as Pacote
+from tb_atleta a 
+inner join tb_unidade u on a.FK_Unidade = u.ID_Unidade
+inner join tb_interfatec i on a.ID_Atleta = i.FK_Atleta
+";
+    
+  $resultado = mysqli_query($conexao->getConexao(), $cmdsql);
+  while($cadastro = mysqli_fetch_assoc($resultado)){
+        
+    $retorno = $retorno."
+      <tr>
+        <td align = 'center'>".$cadastro['Nome']."</td>
+        <td align = 'center'>".$cadastro['Unidade']."</td>
+        <td align = 'center'>".$cadastro['RG']."</td>
+        <td align = 'center'>".$cadastro['Pacote']."</td>
+         <td align = 'center'>".$cadastro['Numero']."</td>
+      </tr>";
+  }
+  $conexao->FechaConexao($conexao->getConexao());
+  return $retorno;
+}
 
 ?>
