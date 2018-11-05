@@ -94,6 +94,15 @@ function RetornaMenu($usuario){
                 </a>
             </li>';
     }
+      if(in_array('15',$permissao)){
+
+        $menu .=  '<li class="">
+                <a href="/views/delegado/alteraratleta.php">
+                    <i class="fas fa-edit"></i>
+                    <span class="title">Alterar Atleta</span>
+                </a>
+            </li>';
+    }
          if(in_array('7',$permissao)){
 
         $menu .=  '<li class="">
